@@ -32,68 +32,71 @@ soup = BeautifulSoup(pg_src, 'html.parser')
 
 name_cont = soup.find_all('a', class_='title')
 for brand_name in name_cont:
-    name_list = brand_name.find('span', class_='hidden')
-    name.append(name_list.text)
+    try:
+        name_list = brand_name.find('span', class_='hidden').text
+    except (AttributeError, KeyError):
+        name_list = np.nan
+    name.append(name_list)
 
 specs_cont = soup.find_all('div', class_='specs')
 for item_specs in specs_cont:
 
     try:
-        item_range = item_specs.find('div', class_='erange_real').text
+        item_range = item_specs.find('span', class_='erange_real').text
     except (AttributeError, KeyError):
         item_range = np.nan
     crRange.append(item_range)
 
     try:
-        effi = item_specs.find('div', class_='efficiency').text
+        effi = item_specs.find('span', class_='efficiency').text
     except (AttributeError, KeyError):
         effi = np.nan
     efficiency.append(effi)
 
     try:
-        wt = item_specs.find('div', class_='weight_p').text
+        wt = item_specs.find('span', class_='weight_p').text
     except (AttributeError, KeyError):
         wt = np.nan
     weight.append(wt)
 
     try:
-        acc = item_specs.find('div', class_='acceleration_p').text
+        acc = item_specs.find('span', class_='acceleration_p').text
     except (AttributeError, KeyError):
         acc = np.nan
     acceleration.append(acc)
 
     try:
-        one_Stop_Range = item_specs.find('div', class_='long_distance_total').text
+        one_Stop_Range = item_specs.find('span', class_='long_distance_total').text
     except (AttributeError, KeyError):
         one_Stop_Range = np.nan
     one_15_min_Stop_Range.append(one_Stop_Range)
 
     try:
-        btry = item_specs.find('div', class_='battery_p').text
+        btry = item_specs.find('span', class_='battery_p').text
     except (AttributeError, KeyError):
         btry = np.nan
     battery_Cap.append(btry)
 
     try:
-        fst = item_specs.find('div', class_='fastcharge_speed_print').text
+        fst = item_specs.find('span', class_='fastcharge_speed_print').text
     except (AttributeError, KeyError):
         fst = np.nan
     fast_charge.append(fst)
 
     try:
-        toweing = item_specs.find('div', class_='towweight_p').text
+        toweing = item_specs.find('span', class_='towweight_p').text
     except (AttributeError, KeyError):
         toweing = np.nan
     towing_cap.append(toweing)
 
     try:
-        crgo = item_specs.find('div', class_='cargo').text
+        crgo = item_specs.find('span', class_='cargo').text
     except (AttributeError, KeyError):
         crgo = np.nan
     cargo_vol.append(crgo)
 
     try:
-        ppr = item_specs.find('div', class_='priceperrange_p').text
+        ppr = item_specs.find('span', class_='priceperrange_p').text
     except (AttributeError, KeyError):
         ppr = np.nan
     price_per_range.append(ppr)
